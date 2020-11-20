@@ -1,0 +1,35 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+exports.__esModule = true;
+exports.MapModalModule = void 0;
+var core_1 = require("@angular/core");
+var google_maps_1 = require("@angular/google-maps");
+var common_1 = require("@angular/common");
+var map_modal_component_1 = require("./map-modal.component");
+var angular_1 = require("@ionic/angular");
+var MapModalModule = /** @class */ (function () {
+    function MapModalModule() {
+    }
+    MapModalModule = __decorate([
+        core_1.NgModule({
+            declarations: [
+                map_modal_component_1.MapModalComponent,
+            ],
+            imports: [
+                common_1.CommonModule,
+                google_maps_1.GoogleMapsModule,
+                angular_1.IonicModule
+            ],
+            exports: [
+                map_modal_component_1.MapModalComponent,
+            ]
+        })
+    ], MapModalModule);
+    return MapModalModule;
+}());
+exports.MapModalModule = MapModalModule;

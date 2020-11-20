@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/complaints"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalles de la denuncia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-spinner *ngIf="!loadedComplaint"></ion-spinner>
+  <ion-grid *ngIf="loadedComplaint">
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+
+        <ion-item>
+          <ion-label>Nro. seguimiento: {{ loadedComplaint._id }}</ion-label>
+          <ion-icon name="finger-print-outline" slot="start"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Tipo: {{ loadedComplaint.type }}</ion-label>
+          <ion-icon name="list-circle-outline" slot="start"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Estado: {{ loadedComplaint.state }}</ion-label>
+          <ion-icon name="ellipsis-horizontal-circle-outline" slot="start"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Dirección: {{ loadedComplaint.location.address }}</ion-label>
+          <ion-icon name="location-outline" slot="start"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="navigate-circle-outline" slot="start"></ion-icon>
+          <ion-list>
+            <ion-label class="ion-text-center" style="margin-bottom: 6px;">Mapa:</ion-label>
+            <ion-img style="margin-bottom: 12px;" *ngIf="mapImage" [src]="mapImage"></ion-img>
+          </ion-list>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Coordenadas: {{ loadedComplaint.location.coordinates.lat }},
+            {{ loadedComplaint.location.coordinates.lng }}</ion-label>
+          <ion-icon name="compass-outline" slot="start"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Patente: {{ loadedComplaint.plate }}</ion-label>
+          <ion-icon name="car-outline" slot="start"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Notas: {{ loadedComplaint.notes }}</ion-label>
+          <ion-icon name="chatbox-ellipses-outline" slot="start"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-label> Fecha: {{loadedComplaint.date.toLocaleDateString()}},
+            {{loadedComplaint.date.toLocaleTimeString()}}</ion-label>
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        </ion-item>
+
+        <ion-item *ngIf="loadedComplaint.imagePaths.length > 0">
+          <ion-icon name="camera-outline" slot="start"></ion-icon>
+          <ion-list>
+            <ion-label class="ion-text-center" style="margin-bottom: 6px;">Foto:</ion-label>
+            <ion-img *ngFor="let imagePath of loadedComplaint.imagePaths" style="margin-bottom: 12px;"
+              [src]="imagePath">
+            </ion-img>
+          </ion-list>
+        </ion-item>
+
+        <ion-item>
+          <ion-label> Fecha creación: {{loadedComplaint.createdAt.toLocaleDateString()}},
+            {{loadedComplaint.createdAt.toLocaleTimeString()}}</ion-label>
+          <ion-icon name="calendar-clear-outline" slot="start"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-label> Fecha última actualización: {{loadedComplaint.updatedAt.toLocaleDateString()}},
+            {{loadedComplaint.updatedAt.toLocaleTimeString()}}</ion-label>
+          <ion-icon name="calendar-clear-outline" slot="start"></ion-icon>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

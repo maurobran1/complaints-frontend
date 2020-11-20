@@ -1,0 +1,21 @@
+// ion-icon {
+//   font-size: 24px;
+//   color: gray;
+//   --ionicon-stroke-width: 16px;
+// }
+
+ion-textarea {
+  max-height: 150px;
+}
+
+::ng-deep .mycomponent-wider-popover
+{
+  --width: 95%;
+  --max-width: 400px;
+}
+
+ion-item {
+  &[disabled] {
+      opacity: 1;
+  }
+}

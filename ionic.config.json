@@ -1,0 +1,7 @@
+{
+  "name": "complaints",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

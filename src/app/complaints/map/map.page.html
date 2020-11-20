@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/complaints"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Google Maps</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <google-map (mapClick)="onMapClick($event)" height="100%" [options]="options" width="100%" [center]="center">
+    <map-marker #marker="mapMarker" (mapClick)="openInfoWindow(marker, complaint)"
+      (mapDblclick)="openComplaintDetails(marker)" *ngFor="let complaint of complaints" [title]="complaint._id"
+      [position]="complaint.location.coordinates">
+      <map-info-window>
+        <ion-label>
+          <!-- <h3>{{complaint.type}}</h3>
+          <p>Patente: {{complaint.plate}}</p>
+          <p>Dirección: {{complaint.location.address}}</p>
+          <p>Fecha: {{complaint.date.toLocaleDateString()}}, {{complaint.date.toLocaleTimeString()}}</p> -->
+          <h3>{{selectedComplaint.type}}</h3>
+          <p>Patente: {{selectedComplaint.plate}}</p>
+          <p>Dirección: {{selectedComplaint.location.address}}</p>
+          <p>Fecha: {{selectedComplaint.date.toLocaleDateString()}}, {{selectedComplaint.date.toLocaleTimeString()}}</p>
+        </ion-label>
+      </map-info-window>
+    </map-marker>
+  </google-map>
+</ion-content>

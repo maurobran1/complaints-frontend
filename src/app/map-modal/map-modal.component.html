@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Seleccionar ubicación</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button *ngIf="markedPosition" (click)="onAccept()">
+        <ion-icon slot="icon-only" name="checkmark-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="onCancel()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <google-map (mapClick)="onMapClick($event)" height="100%" width="100%" [options]="options" [center]="center"
+    [zoom]="zoom">
+    <map-marker [position]="markedPosition" [options]="markerOptions" (mapDragend)="onMapMarkDragEnd($event)">
+    </map-marker>
+  </google-map>
+</ion-content>
