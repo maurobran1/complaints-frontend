@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Plugins, CameraResultType, CameraSource, CameraPhoto, Filesystem } from '@capacitor/core';
+import { Plugins, CameraResultType, CameraSource, CameraPhoto } from '@capacitor/core';
 
 const { Camera } = Plugins;
 

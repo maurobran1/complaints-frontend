@@ -24,7 +24,7 @@ export class GoogleMapsService {
     if (!zoom) {
       zoom = 14
     }
-    return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${zoom}&size=500x300&maptype=roadmap
+    return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${zoom}&size=700x400&maptype=roadmap
     &markers=color:red%7Clabel:Place%7C${lat},${lng}&key=${environment.googleMapsAPIKey}`
   }
 }
