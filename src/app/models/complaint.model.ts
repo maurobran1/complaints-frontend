@@ -10,12 +10,10 @@ export interface Complaint {
         address?: string;
     };
     date?: Date;
-    imagePaths?: string;
+    imagePaths?: string[];
     notes?: string;
     createdAt?: Date;
     updatedAt?: Date;
-    image?: string,
-    images?: string[]
 }
 
 export interface Coordinates {

@@ -17,7 +17,7 @@ export class GoogleMapsService {
         return null;
       }
       return geoData.results[0].formatted_address.split(',')[0];
-    }))
+    }));
   }
 
   getMapImage(lat: number, lng: number, zoom?: number) {
@@ -27,4 +27,5 @@ export class GoogleMapsService {
     return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${zoom}&size=700x400&maptype=roadmap
     &markers=color:red%7Clabel:Place%7C${lat},${lng}&key=${environment.googleMapsAPIKey}`
   }
+
 }

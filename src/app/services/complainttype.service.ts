@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ComplaintType } from '../complaints/complaint-type.model';
+import { ComplaintType } from '../models/complaint-type.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class ComplainttypeService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getComplaints() {
+  getComplaintTypes() {
     return this.httpClient.get<ComplaintType[]>(this.API_URL);
   }
 }

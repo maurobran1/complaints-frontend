@@ -14,6 +14,9 @@ export class FilterPipe implements PipeTransform {
     text = text.toLowerCase().replace(new RegExp(' ', 'g'), '');
 
     return complaints.filter((complaint) => {
+      if (!complaint.notes){
+        complaint.notes = ""
+      }
       const shortDate = complaint.date.toLocaleDateString().replace(new RegExp(' ', 'g'), '').substring(0, 4) + complaint.date.toLocaleDateString().replace(new RegExp(' ', 'g'), '').substring(6);
       return (complaint.plate.toLowerCase().replace(new RegExp(' ', 'g'), '').includes(text) ||
         complaint.state.toLowerCase().replace(new RegExp(' ', 'g'), '').includes(text) ||

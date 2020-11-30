@@ -3,6 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/complaints"></ion-back-button>
     </ion-buttons>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="updateComplaint()">
+        <ion-icon name="save-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
     <ion-title>Detalles de la denuncia</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -28,9 +33,29 @@
         </ion-item>
 
         <ion-item>
+          <ion-label position="floating">Tipo:</ion-label>
+          <ion-select [(ngModel)]="asd" interface="popover" [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}"
+            cancelText="Cancelar" okText="Aceptar" value={{loadedComplaint.typeID}}>
+            <ion-select-option *ngFor="let complaintType of complaintTypes" value={{complaintType._id}}>
+              {{complaintType.type}}</ion-select-option>
+          </ion-select>
+          <ion-icon name="list-circle-outline" slot="start"></ion-icon>
+        </ion-item>
+
+        <ion-item>
           <ion-label>
             <p>Estado:</p> {{ loadedComplaint.state }}
           </ion-label>
+          <ion-icon name="ellipsis-horizontal-circle-outline" slot="start"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Estado:</ion-label>
+          <ion-select interface="popover" [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}"
+            cancelText="Cancelar" okText="Aceptar" value={{loadedComplaint.stateID}}>
+            <ion-select-option *ngFor="let complaintState of complaintStates" value={{complaintState._id}}>
+              {{complaintState.state}}</ion-select-option>
+          </ion-select>
           <ion-icon name="ellipsis-horizontal-circle-outline" slot="start"></ion-icon>
         </ion-item>
 
@@ -66,7 +91,7 @@
           <ion-icon name="car-outline" slot="start"></ion-icon>
         </ion-item>
 
-        <ion-item>
+        <ion-item *ngIf="loadedComplaint.notes">
           <ion-label>
             <p>Notas:</p> {{ loadedComplaint.notes }}
           </ion-label>
@@ -84,7 +109,9 @@
         <ion-item *ngIf="loadedComplaint.imagePaths.length > 0">
           <ion-icon name="camera-outline" slot="start"></ion-icon>
           <ion-list>
-            <ion-label style="margin-bottom: 6px;"><p>Fotos:</p></ion-label>
+            <ion-label style="margin-bottom: 6px;">
+              <p>Fotos:</p>
+            </ion-label>
             <ion-img *ngFor="let imagePath of loadedComplaint.imagePaths" style="margin-bottom: 12px;"
               [src]="imagePath">
             </ion-img>
@@ -99,7 +126,7 @@
           <ion-icon name="calendar-clear-outline" slot="start"></ion-icon>
         </ion-item>
 
-        <ion-item>
+        <ion-item *ngIf="loadedComplaint.createdAt.getUTCDate() !== loadedComplaint.updatedAt.getUTCDate()">
           <ion-label>
             <p>Última actualización:</p> {{loadedComplaint.updatedAt.toLocaleDateString()}},
             {{loadedComplaint.updatedAt.toLocaleTimeString()}}

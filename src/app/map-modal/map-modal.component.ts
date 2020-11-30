@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MapMarker } from '@angular/google-maps';
 import { ModalController } from '@ionic/angular';
 
@@ -7,7 +7,7 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './map-modal.component.html',
   styleUrls: ['./map-modal.component.scss'],
 })
-export class MapModalComponent implements OnInit {
+export class MapModalComponent implements OnInit, OnDestroy {
   markedPosition: google.maps.LatLngLiteral;
 
   center: google.maps.LatLngLiteral = {
@@ -30,6 +30,7 @@ export class MapModalComponent implements OnInit {
 
   constructor(private modalController: ModalController) { }
 
+
   ngOnInit() { }
 
 
@@ -51,6 +52,10 @@ export class MapModalComponent implements OnInit {
   onMapMarkDragEnd(event) {
     this.markedPosition = event.latLng.toJSON();
     console.log(this.markedPosition)
+  }
+
+  ngOnDestroy(){
+      
   }
 
 }

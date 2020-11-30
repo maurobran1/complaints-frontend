@@ -16,6 +16,7 @@ export class ComplaintsPage implements OnInit {
 
   ngOnInit() {
     this.complaintsService.complaints.subscribe(complaints => {
+      console.log(complaints);
       this.complaints = complaints;
     });
     this.complaintsService.getComplaints();

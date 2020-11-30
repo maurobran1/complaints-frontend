@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActionSheetController, AlertController, IonInput, ModalController, ToastController } from '@ionic/angular';
 import { first } from 'rxjs/operators';
 
-import { ComplaintType } from '../complaint-type.model';
+import { ComplaintType } from '../../models/complaint-type.model';
 import { Complaint, Coordinates } from '../../models/complaint.model';
 import { ComplaintsService } from '../../services/complaints.service';
 
@@ -15,7 +15,6 @@ import { PhotoService } from 'src/app/services/photo.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 const { Geolocation } = Plugins;
-const { Keyboard } = Plugins;
 
 @Component({
   selector: 'app-new-complaint',
@@ -44,8 +43,9 @@ export class NewComplaintPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.complaintTypeService.getComplaints().pipe(first())
+    this.complaintTypeService.getComplaintTypes().pipe(first())
       .subscribe(complaintTypes => {
+        console.log(complaintTypes)
         this.complaintTypes = complaintTypes;
       })
   }
@@ -57,7 +57,7 @@ export class NewComplaintPage implements OnInit {
 
     const newComplaint: Complaint = {
       typeID: form.value.typeID,
-      plate: form.value.plate,
+      plate: form.value.plate.toUpperCase().replace(' ', ''),
       location: {
         coordinates: this.selectedLocation,
         address: form.value.address,
@@ -66,19 +66,19 @@ export class NewComplaintPage implements OnInit {
       notes: form.value.notes,
     }
 
-    ;(await this.complaintsService.addComplaint(newComplaint, this.capturedPhotos)).pipe(first()).subscribe(
-      complaint => {
-        if (complaint) {
-          this.presentToast('Denuncia realizada correctamente', 3000);
-          console.log(complaint);
-          form.reset();
-          this.complaintsService.getComplaints();
-          this.capturedPhotos = [];
-          this.selectedLocation = {};
-          this.router.navigate(["../../", complaint._id], { relativeTo: this.activatedRoute });
+      ; (await this.complaintsService.addComplaint(newComplaint, this.capturedPhotos)).pipe(first()).subscribe(
+        complaint => {
+          if (complaint) {
+            this.presentToast('Denuncia realizada correctamente', 3000);
+            console.log(complaint);
+            form.reset();
+            this.complaintsService.getComplaints();
+            this.capturedPhotos = [];
+            this.selectedLocation = {};
+            this.router.navigate(["../../", complaint._id], { relativeTo: this.activatedRoute });
+          }
         }
-      }
-    );
+      );
   }
 
   async presentToast(message: string, duration: number) {
@@ -105,6 +105,7 @@ export class NewComplaintPage implements OnInit {
               this.selectedLocation = modalData.data;
               this.coordinatesInput.value = `${modalData.data.lat}, ${modalData.data.lng}`
               this.googleMapsService.getAddress(this.selectedLocation.lat, this.selectedLocation.lng).subscribe(address => {
+                console.log(address)
                 this.addressInput.value = address;
               });
             });
@@ -118,8 +119,9 @@ export class NewComplaintPage implements OnInit {
             this.addressInput.value = "";
             this.coordinatesInput.value = "";
             this.addressInput.disabled = false;
-            this.addressInput.setFocus();
-            Keyboard.show();
+            setTimeout(() => {
+              this.addressInput.setFocus();
+            }, 150);
           }
         },
         {
